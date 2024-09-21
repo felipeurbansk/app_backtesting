@@ -1,0 +1,13 @@
+# Ignore a pasta do ambiente virtual
+backtesting-env/
+
+# Ignore arquivos de variáveis de ambiente e outras credenciais
+.env
+
+# Ignore arquivos de dados
+data/**/*.csv
+plots/**/*.html
+
+# Outros arquivos que você deseja ignorar
+__pycache__/
+*.pyc
