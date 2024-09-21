@@ -17,10 +17,10 @@ def main():
     os.makedirs(folder_plots, exist_ok=True)
 
     # Definir o intervalo de dias para carregar os dados
-    days_interval = int(os.getenv('START_DAYS_INTERVAL', 33))
+    days_interval = int(os.getenv('START_DAYS_INTERVAL', 29))
 
     # Definir o código da moeda, intervalo de tempo e data de início
-    coin_code = 'BTCUSDT' # Código da moeda
+    coin_code = 'AAVEBTC' # Código da moeda
     interval = '1h'  # Intervalo
     start = (datetime.now() - timedelta(days=days_interval)).strftime('%Y-%m-%d')
 
@@ -39,8 +39,8 @@ def main():
         print("Arquivo de dados de " + coin_code + " encontrado!")
         coin_price = pd.read_csv(file_name, index_col=0, parse_dates=True)
     else:
-        vbt.settings.data.binance['api_key'] = os.getenv('BINANCE_API_KEY')
-        vbt.settings.data.binance['api_secret'] = os.getenv('BINANCE_API_SECRET')
+        # vbt.settings.data.binance['api_key'] = os.getenv('BINANCE_API_KEY')
+        # vbt.settings.data.binance['api_secret'] = os.getenv('BINANCE_API_SECRET')
 
         coin_price = vbt.BinanceData.download(
             coin_code,
@@ -74,7 +74,7 @@ def main():
 
     # Carregar o MACD
     print("Carregando MACD de " + coin_code + "...")
-    macd = vbt.MACD.run(coin_price, fast_window=12, slow_window=26, signal_window=9)
+    macd = vbt.MACD.run(coin_price, fast_window=22, slow_window=26, signal_window=9)
 
     # Carregar o RSI
     print("Carregando RSI de " + coin_code + "...")
@@ -94,7 +94,7 @@ def main():
     portfolio = vbt.Portfolio.from_signals(coin_price, entries, exits, init_cash=initial_value, fees=fees_percent)
 
     print("Plotando o portfólio...")
-    plot_dir = os.path.join(folder_plots, coin_filter)
+    plot_dir = os.path.join(folder_plots, coin_code, coin_filter)
     if not os.path.exists(plot_dir):
         os.makedirs(plot_dir)
 
