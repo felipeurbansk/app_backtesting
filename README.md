@@ -21,5 +21,5 @@
 
 4. Execute a aplicação:
 ```bash
-    python3 main.py
+    make start
 ```

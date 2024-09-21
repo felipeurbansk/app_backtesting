@@ -5,8 +5,8 @@ backtesting-env/
 .env
 
 # Ignore arquivos de dados
-data/**/*.csv
-plots/**/*.html
+*/data/*
+*/plots/*
 
 # Outros arquivos que você deseja ignorar
 __pycache__/

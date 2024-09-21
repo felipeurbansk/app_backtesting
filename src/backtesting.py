@@ -4,11 +4,19 @@ import vectorbt as vbt
 import pandas as pd
 import pandas_ta as ta 
 from datetime import datetime, timedelta
+import argparse
 
 load_dotenv()
 
 # Inicializar a aplicação
 def main():
+    parser = argparse.ArgumentParser(description="Processa os parâmetros do Makefile")
+    parser.add_argument('--interval', type=str, required=False, help='Intervalo de tempo, ex: 1h')
+    parser.add_argument('--days_interval', type=int, required=False, help='Intervalo de dias, ex: 29')
+    parser.add_argument('--coin_code', type=str, required=False, help='Código da moeda, ex: BTCUSDT')
+    
+    args = parser.parse_args()
+
     # Definir o caminho da pasta de dados
     folder_path = os.getenv('APPLICATION_DATA', 'src/data')
     folder_plots = os.getenv('APPLICATION_PLOTS', 'src/plots')
@@ -17,11 +25,11 @@ def main():
     os.makedirs(folder_plots, exist_ok=True)
 
     # Definir o intervalo de dias para carregar os dados
-    days_interval = int(os.getenv('START_DAYS_INTERVAL', 29))
+    days_interval = int(args.days_interval or os.getenv('START_DAYS_INTERVAL', 29))
 
     # Definir o código da moeda, intervalo de tempo e data de início
-    coin_code = 'AAVEBTC' # Código da moeda
-    interval = '1h'  # Intervalo
+    coin_code = args.coin_code or 'BTCUSDT' # Código da moeda
+    interval = args.interval or '1h'  # Intervalo
     start = (datetime.now() - timedelta(days=days_interval)).strftime('%Y-%m-%d')
 
     # Backtesting
