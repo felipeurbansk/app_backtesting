@@ -2,8 +2,8 @@
 
 1. Clone o repositório:
 ```bash
-    git clone https://github.com/seu-usuario/seu-projeto.git
-    cd seu-projeto
+    git clone https://github.com/felipeurbansk/app_backtesting.git
+    cd app_backtesting
 ```
 
 2. Crie um ambiente virtual e ative-o:
